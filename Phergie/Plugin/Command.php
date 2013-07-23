@@ -14,7 +14,7 @@
  * @category  Phergie
  * @package   Phergie_Plugin_Command
  * @author    Phergie Development Team <team@phergie.org>
- * @copyright 2008-2012 Phergie Development Team (http://phergie.org)
+ * @copyright 2008-2011 Phergie Development Team (http://phergie.org)
  * @license   http://phergie.org/license New BSD License
  * @link      http://pear.phergie.org/package/Phergie_Plugin_Command
  */
@@ -118,6 +118,11 @@ class Phergie_Plugin_Command extends Phergie_Plugin_Abstract
         // Separate the command and arguments
         $parsed = preg_split('/\s+/', $msg, 2);
         $command = strtolower(array_shift($parsed));
+        if (!($command{0} == '!'))
+        {
+            return;
+        }
+        $command = str_replace('!', '', $command);
         $args = count($parsed) ? array_shift($parsed) : '';
 
         // Resolve aliases to their corresponding commands
